@@ -102,4 +102,4 @@ Gateway servis gelen requestleri endpointlerindeki on eke gore ilgili servislere
 
 ### Architecture
 
-![architecture.png](inkdrop://file:4gdazvKbj)
+![architecture.png](https://uploads.inkdrop.app/attachments/user-28d8bf6ae780f83a9de255b95e12907f/file:4gdazvKbj/index-public)
