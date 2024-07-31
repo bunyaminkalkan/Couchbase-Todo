@@ -1,0 +1,16 @@
+version: "3.7"
+
+services:
+  couchbase:
+    container_name: CouchbaseTodo
+    image: couchbase:latest
+    ports:
+      - "8091-8096:8091-8096" # ui ports
+      - "11210-11211:11210-11211" # engine ports
+    volumes:
+      - couchbase_data:/opt/couchbase/var
+      - couchbase_config:/opt/couchbase/etc
+
+volumes:
+  couchbase_data:
+  couchbase_config:
