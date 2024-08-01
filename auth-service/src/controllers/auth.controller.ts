@@ -6,9 +6,13 @@ export const signUp = async (
   res: Response,
   next: NextFunction
 ) => {
-  const user = req.body;
-  const registeredUser = await register(user);
-  res.status(200).json(registeredUser);
+  try {
+    const user = req.body;
+    const registeredUser = await register(user);
+    res.status(200).json(registeredUser);
+  } catch (error) {
+    next(error);
+  }
 };
 
 export const signIn = async (
@@ -16,9 +20,13 @@ export const signIn = async (
   res: Response,
   next: NextFunction
 ) => {
-  const credentials = req.body;
-  const loggedInUser = await login(credentials);
-  res.status(200).json(loggedInUser);
+  try {
+    const credentials = req.body;
+    const loggedInUser = await login(credentials);
+    res.status(200).json(loggedInUser);
+  } catch (error) {
+    next(error);
+  }
 };
 
 export const refreshToken = async (
@@ -26,7 +34,11 @@ export const refreshToken = async (
   res: Response,
   next: NextFunction
 ) => {
-  const { refreshToken } = req.body;
-  const newAccessToken = await refreshAccessToken(refreshToken);
-  res.status(200).json(newAccessToken);
+  try {
+    const { refreshToken } = req.body;
+    const newAccessToken = await refreshAccessToken(refreshToken);
+    res.status(200).json(newAccessToken);
+  } catch (error) {
+    next(error);
+  }
 };
