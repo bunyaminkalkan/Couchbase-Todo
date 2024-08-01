@@ -2,6 +2,7 @@ import { getCouchbaseConnection } from "../db";
 import { User } from "../@types";
 import TokenService from "./token.service";
 import bcrypt from "bcryptjs";
+import APIError from "../errors/APIError";
 
 const SALT = process.env.SALT || "";
 
@@ -30,10 +31,7 @@ export const login = async (credentials: {
 }) => {
   const user = await getUserByEmail(credentials.email);
   if (!bcrypt.compareSync(credentials.password, user.password)) {
-    // throw exception
-    return {
-      success: false,
-    };
+    throw new APIError(403, "CREDENTIALS_ARE_WRONG", "Username or password are wrong")
   }
 
   delete user.password;
@@ -54,6 +52,9 @@ const getUserByEmail = async (email: string) => {
     "SELECT u.* FROM `UserTodoDB`.`Auth`.`Users` u WHERE email = " +
       `"${email}"`
   );
+
+  if (result.rows.length === 0) throw new APIError(404, 'USER_NOT_FOUND', 'No such user')
+
   return result.rows[0];
 };
 
