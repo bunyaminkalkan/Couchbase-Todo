@@ -49,7 +49,7 @@ export const login = async (credentials: {
 const getUserByEmail = async (email: string) => {
   const { cluster } = await getCouchbaseConnection();
   const result = await cluster.query(
-    "SELECT u.* FROM `UserTodoDB`.`Auth`.`Users` u WHERE email = " +
+    "SELECT u.* FROM `UserTodoDB`.`user-todo`.`User_Todo` u WHERE email = " +
       `"${email}"`
   );
 

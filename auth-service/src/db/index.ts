@@ -11,8 +11,8 @@ export async function getCouchbaseConnection() {
   });
 
   const Bucket: Bucket = cluster.bucket("UserTodoDB");
-  const Scope: Scope = Bucket.scope("Auth");
-  const users: Collection = Scope.collection("Users");
+  const Scope: Scope = Bucket.scope("user-todo");
+  const users: Collection = Scope.collection("User_Todo");
 
   return {
     cluster,
