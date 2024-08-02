@@ -24,11 +24,11 @@ const checkAuth = (req: Request, res: Response, next: NextFunction) => {
 
 
 const authProxy = createProxyMiddleware({
-  target: "http://127.0.0.1:3001/api/auth",
+  target: "http://AuthService:3001/api/auth",
 });
 
 const todoProxy = createProxyMiddleware({
-  target: "http://127.0.0.1:3002/api/todo",
+  target: "http://TodoService:3002/api/todo",
 });
 
 app.use("/api/auth", authProxy);
