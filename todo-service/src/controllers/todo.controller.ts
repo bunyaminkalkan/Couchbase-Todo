@@ -13,8 +13,8 @@ export const addTodo = async (
   next: NextFunction
 ) => {
   try {
-    const documentId = req.body["documentId"];
-    const todo = req.body["todo"];
+    const documentId = req.headers["documentid"] as string;
+    const todo = req.body;
     const createdTodo = await createTodo(documentId, todo);
     res.status(200).json(createdTodo);
   } catch (error) {
@@ -28,7 +28,7 @@ export const getTodos = async (
   next: NextFunction
 ) => {
   try {
-    const documentId = req.body["documentId"];
+    const documentId = req.headers["documentid"] as string;
     const todos = await getTodosByDocumentId(documentId);
     res.status(200).json(todos);
   } catch (error) {
@@ -42,7 +42,7 @@ export const getTodoById = async (
   next: NextFunction
 ) => {
   try {
-    const documentId = req.body["documentId"];
+    const documentId = req.headers["documentid"] as string;
     const { todoId } = req.params;
     const todo = await getOneTodo(documentId, todoId);
     res.status(200).json(todo);
@@ -57,7 +57,7 @@ export const deleteTodoById = async (
   next: NextFunction
 ) => {
   try {
-    const documentId = req.body["documentId"];
+    const documentId = req.headers["documentid"] as string;
     const { todoId } = req.params;
     const deletedTodo = await deleteOneTodo(documentId, todoId);
     res.status(200).json(deletedTodo);
@@ -72,7 +72,7 @@ export const getDeletedTodos = async (
   next: NextFunction
 ) => {
   try {
-    const documentId = req.body["documentId"];
+    const documentId = req.headers["documentid"] as string;
     const deletedTodos = await getDeletedTodosByDocumentId(documentId);
     res.status(200).json(deletedTodos);
   } catch (error) {
