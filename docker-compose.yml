@@ -5,11 +5,35 @@ services:
     container_name: CouchbaseTodo
     image: couchbase:latest
     ports:
-      - "8091-8096:8091-8096" # ui ports
-      - "11210-11211:11210-11211" # engine ports
+      - "8091-8096:8091-8096" # UI ports
+      - "11210-11211:11210-11211" # Engine ports
     volumes:
       - couchbase_data:/opt/couchbase/var
       - couchbase_config:/opt/couchbase/etc
+
+  gateway:
+    container_name: GatewayService
+    build:
+      context: ./gateway
+    ports:
+      - "3000:3000"
+    depends_on:
+      - auth
+      - todo
+
+  auth:
+    container_name: AuthService
+    build:
+      context: ./auth-service
+    depends_on:
+      - couchbase
+
+  todo:
+    container_name: TodoService
+    build:
+      context: ./todo-service
+    depends_on:
+      - couchbase
 
 volumes:
   couchbase_data:
